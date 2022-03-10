@@ -1,5 +1,7 @@
 package app.web.pavelk.speech4;
 
+import app.web.pavelk.speech4.translate.Google;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,11 +15,14 @@ public class Ui {
         jFrame.setBounds(500, 500, 200, 100);
         JButton jButtonSay = new JButton("Say");
         JButton jButtonStop = new JButton("Stop");
+        JButton jButtonTranslate = new JButton("Translate");
 
         jButtonSay.setSize(50, 50);
         jButtonStop.setSize(50, 50);
+        jButtonTranslate.setSize(50, 50);
         jPanel.add(jButtonSay, Component.LEFT_ALIGNMENT);
         jPanel.add(jButtonStop, Component.RIGHT_ALIGNMENT);
+        jPanel.add(jButtonTranslate, Component.RIGHT_ALIGNMENT);
         jFrame.add(jPanel);
         //JDialog JFrame
 //        jFrame.setType(javax.swing.JFrame.Type.UTILITY);
@@ -34,6 +39,11 @@ public class Ui {
         });
         jButtonStop.addActionListener(e -> {
             speech.stop();
+        });
+        jButtonTranslate.addActionListener(e -> {
+            String translate = Google.translate(ClipboardWorker.getText());
+            speech.stop();
+            speech.say(translate);
         });
 
     }

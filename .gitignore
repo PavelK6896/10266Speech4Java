@@ -1,3 +1,5 @@
 /.gradle/
 /.idea/
 /build/
+/src/main/resources/property.yaml
+/src/main/resources/property.json
