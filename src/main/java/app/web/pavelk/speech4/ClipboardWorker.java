@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ClipboardWorker {
@@ -40,5 +43,32 @@ public class ClipboardWorker {
         }
         return result;
     }
+
+    public static String text2 = "";
+
+    public static void run2() {
+        CompletableFuture.runAsync(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Transferable contents = clipboard.getContents(new Object());
+                try {
+                    String text = String.valueOf(contents.getTransferData(DataFlavor.stringFlavor));
+                    if (!text.equals(text2)) {
+                        Ui.updatePosition();
+                        text2 = text;
+                    }
+                } catch (UnsupportedFlavorException | IOException e) {
+                    e.printStackTrace();
+                }
+                clipboard.setContents(contents, null);
+            }
+        });
+    }
+
 
 }

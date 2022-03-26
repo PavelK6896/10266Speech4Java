@@ -5,7 +5,7 @@ import app.web.pavelk.speech4.speech.Speech;
 
 public class Main {
     public static void main(String[] args) {
-        ClipboardWorker.run();
+        ClipboardWorker.run2();
         Speech speech = Factory.create();
         Ui.create(speech);
     }

@@ -16,14 +16,15 @@ public class Linux implements Speech {
 
     @Override
     public void say(String text) {
-        String[] command = {"/bin/bash", "-c", "echo '(SayText \"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
-        String[] command2 = {"/bin/bash", "-c", "echo '(SayText \"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
+        String[] command = {"/bin/bash", "-c", "xclip -o | festival --tts --language russian --pipe"};
+        String[] command4 = {"/bin/bash", "-c", "echo '(\"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
+        String[] command2 = {"/bin/bash", "-c", "echo '(\"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
         try {
-            Process process = Runtime.getRuntime().exec(command);
+            Process process = Runtime.getRuntime().exec(command2);
 //            System.out.println(new String(process.getInputStream().readAllBytes()));
 //            System.out.println(new String(process.getErrorStream().readAllBytes()));
             pid = process.pid();
-            System.out.println(pid);
+//            System.out.println(pid);
         } catch (IOException e) {
             e.printStackTrace();
         }
