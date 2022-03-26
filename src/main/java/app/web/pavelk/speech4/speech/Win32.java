@@ -1,10 +1,19 @@
-package app.web.pavelk.speech4;
+package app.web.pavelk.speech4.speech;
+
+import lombok.Getter;
 
 import java.io.IOException;
+
 
 public class Win32 implements Speech {
 
     private Long pid;
+    @Getter
+    private Os os;
+
+    public Win32(Os win32) {
+        os = win32;
+    }
 
     @Override
     public void say(String text) {

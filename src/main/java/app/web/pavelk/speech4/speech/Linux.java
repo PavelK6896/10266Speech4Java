@@ -1,14 +1,23 @@
-package app.web.pavelk.speech4;
+package app.web.pavelk.speech4.speech;
+
+import lombok.Getter;
 
 import java.io.IOException;
 
 public class Linux implements Speech {
 
     private Long pid;
+    @Getter
+    private Os os;
+
+    public Linux(Os linux) {
+        os = linux;
+    }
 
     @Override
     public void say(String text) {
-        String[] command = {"/bin/bash", "-c", "echo '(SayText \"%s\")' | padsp festival --pipe".formatted(text)};
+        String[] command = {"/bin/bash", "-c", "echo '(SayText \"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
+        String[] command2 = {"/bin/bash", "-c", "echo '(SayText \"%s\")' | padsp festival --tts --language russian --pipe".formatted(text)};
         try {
             Process process = Runtime.getRuntime().exec(command);
 //            System.out.println(new String(process.getInputStream().readAllBytes()));
